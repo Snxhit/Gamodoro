@@ -104,7 +104,6 @@ def index():
         conn.commit()
         conn.close()
 
-        # TODO: add sessions
         return redirect(url_for("sessions"))
 
     return render_template("index.html", username=session["username"])
@@ -142,3 +141,20 @@ def delete(id):
     conn.close()
 
     return redirect(url_for("sessions"))
+
+
+@app.route("/leaderboard")
+def leaderboard():
+    conn = get_db()
+
+    users = conn.execute("""
+        SELECT users.username, SUM(sessions.coins) AS total_coins
+        FROM sessions
+        JOIN users ON users.id = sessions.user_id
+        GROUP BY users.id
+        ORDER BY total_coins DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template("leaderboard.html", users=users)

@@ -1,0 +1,10 @@
+<h1>Leaderboard</h1>
+
+{% for u in users %}
+<div>
+  {{ loop.index }}. {{ u.username }} - {{ u.total_coins }}
+</div>
+{% endfor %}
+
+<br>
+<a href="/">Home</a>
