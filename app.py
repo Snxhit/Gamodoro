@@ -108,3 +108,37 @@ def index():
         return redirect(url_for("sessions"))
 
     return render_template("index.html", username=session["username"])
+
+
+@app.route("/sessions")
+def sessions():
+    if not require_login():
+        return redirect(url_for("login"))
+
+    conn = get_db()
+
+    data = conn.execute("""
+        SELECT sessions.*, users.username
+        FROM sessions
+        JOIN users ON users.id = sessions.user_id
+        ORDER BY sessions.id DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template("sessions.html", sessions=data)
+
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    if not require_login():
+        return redirect(url_for("login"))
+
+    conn = get_db()
+    conn.execute(
+        "DELETE FROM sessions WHERE id=? AND user_id=?", (id, session["user_id"])
+    )
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("sessions"))

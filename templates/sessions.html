@@ -1,0 +1,11 @@
+<h1>Your Sessions</h1>
+
+{% for s in sessions %}
+<div>
+  {{ s.username }} studied {{ s.mins }} mins (+{{ s.coins }} coins)
+  <a href="/delete/{{ s.id }}">Delete</a>
+</div>
+{% endfor %}
+
+<br>
+<a href="/">Home</a>
