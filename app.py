@@ -94,7 +94,7 @@ def index():
 
     if request.method == "POST":
         mins = int(request.form["minutes"])
-        coins = mins // 5
+        coins = mins * 5
 
         conn = get_db()
         conn.execute(

@@ -1,9 +1,14 @@
 <h2>Welcome {{ username }}</h2>
 
+<p id="timer">0</p>
+<button id="startTimer">Start Logging</button>
+
 <form method="POST">
-  <input name="minutes" type="number" placeholder="Minutes worked" required>
-  <button>Log Session</button>
+  <input id="seshTime" name="minutes" type="hidden" required>
+  <button id="stopTimer" disabled>Log Session</button>
 </form>
 
 <a href="/sessions">Sessions</a>
 <a href="/leaderboard">Leaderboard</a>
+
+<script src="/static/index.js"></script>

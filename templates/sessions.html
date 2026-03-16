@@ -2,7 +2,7 @@
 
 {% for s in sessions %}
 <div>
-  {{ s.username }} studied {{ s.mins }} mins (+{{ s.coins }} coins)
+  {{ s.username }} worked {{ s.minutes }} mins (+{{ s.coins }} coins)
   <a href="/delete/{{ s.id }}">Delete</a>
 </div>
 {% endfor %}
